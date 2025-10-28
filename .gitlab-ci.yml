@@ -1,0 +1,9 @@
+stages:
+  - build
+
+check_compose:
+  stage: build
+  script:
+    - docker-compose config
+  only:
+    - main
