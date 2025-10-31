@@ -1,0 +1,117 @@
+Přihlaš se do GitLabu
+
+Klikni vlevo nahoře na Projects → Create new project
+
+Vyber Blank project
+
+Název: zadej jaký chceš
+
+Viditelnost: Private
+
+Klikni Create project
+
+
+Klikni Repository → Upload file
+
+Nahraj soubory v prokjektovém adDoresáři
+ 
+ Do popisku napiš třeba Initial commit
+
+Klikni Commit changes
+
+
+V GitLabu klikni Repository → Create new file
+
+Název souboru: .gitlab-ci.yml
+
+Vlož text pro pipeline
+
+
+Klikni Commit changes # Tento krok není nutný pro běh systému, jen pro validaci konfigurace.
+
+Spusť Docker Desktop
+
+Zkontroluj, že běží (ikona modrého velrybího loga v pravém dolním rohu)
+
+
+V Průzkumníku otevři C:\monitoring a vlož soubory s konfigurací
+
+docker-compose.yml # Tento soubor říká Dockeru, jaké služby má spustit a jak jsou propojené.
+
+prometheus.yml # Prometheus sbírá metriky z Node Exporteru.
+
+alertmanager.yml # Alertmanager posílá emailové upozornění, pokud Prometheus zaznamená problém.
+
+nginx.conf  # Tento soubor zajišťuje, že se do Alertmanageru dostane jen oprávněný uživatel.
+
+
+
+
+
+Spuštění Dockeru a konfigurace
+Spusť Docker Desktop
+
+Zkontroluj, že běží (ikona modrého velrybího loga v pravém dolním rohu)
+
+V Průzkumníku otevři C:\monitoring a vlož soubory s konfigurací:
+
+docker-compose.yml   # Definuje, jaké služby (Prometheus, Alertmanager, Nginx) má Docker spustit.
+prometheus.yml        # Prometheus sbírá metriky z Node Exporteru.
+alertmanager.yml      # Alertmanager posílá emailová upozornění.
+nginx.conf            # Zajišťuje přístup do Alertmanageru jen pro oprávněné uživatele.
+
+
+Otevři PowerShell (např. klikni Start → napiš "PowerShell" → Enter)
+
+V PowerShellu napiš:
+
+cd C:\monitoring        # Přepne se do složky s konfigurací
+docker compose up -d    # Spustí všechny kontejnery na pozadí (nová syntaxe Docker Compose)
+
+# - docker compose up spustí systém podle docker-compose.yml
+# - parametr -d znamená "detached mode" – běží na pozadí
+# - při první instalaci se automaticky stáhnou potřebné Docker image
+
+🧰 Zastavení nebo restart systému (doplnění)
+Pro zastavení všech kontejnerů:
+docker compose down     # Vypne a odstraní všechny kontejnery
+
+Pro opětovné spuštění:
+docker compose up -d    # Znovu spustí vše podle konfigurace
+
+Pro kontrolu stavu:
+docker compose ps       # Zobrazí seznam běžících služeb
+
+
+
+
+AWS (jen klikáním)
+
+Pokud to chceš nasadit do cloudu:
+
+Přihlaš se na https://aws.amazon.com
+
+Otevři AWS Management Console
+
+Vyber EC2 → Launch instance
+
+Název: monitoring
+
+OS: Windows Server 2022 Base
+
+Typ: t2.micro (Free Tier)
+
+Povolit porty:
+
+8080 (Nginx)
+
+9090 (Prometheus)
+
+9093 (Alertmanager)
+
+Po spuštění se připoj přes RDP (vzdálenou plochu)
+
+Nainstaluj Docker Desktop a zkopíruj složku C:\monitoring
+
+# Tím budeš mít kompletně stejný systém běžící v AWS, bez Linuxu.
+
