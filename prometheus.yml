@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s             # jak často Prometheus sbírá data
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node_exporter:9100']   # Prometheus sleduje Node Exporter
+
+rule_files:
+  - 'alerts.yml'                    # (volitelné) alert pravidla

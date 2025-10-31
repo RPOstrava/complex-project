@@ -1,0 +1,14 @@
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'monitoring@firma.cz'
+  smtp_auth_username: 'monitoring@firma.cz'
+  smtp_auth_password: 'tajneheslo123'
+
+route:
+  receiver: 'email-team'
+
+receivers:
+  - name: 'email-team'
+    email_configs:
+      - to: 'jan.novak@firma.cz, petr.svoboda@firma.cz'
+        send_resolved: true
