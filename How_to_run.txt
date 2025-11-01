@@ -1,0 +1,65 @@
+
+
+Spustit celý monitoring systém po restartu PC
+
+
+Spusť Docker Desktop
+
+-   Klikni na ikonu 🐳 Docker Desktop
+-   Počkej, až se vpravo dole (v tray oblasti) zobrazí modrá velryba →
+    Docker běží.
+
+
+Otevři složku s projektem
+
+-   Otevři Průzkumníka → přejdi do:
+    C:
+
+
+Spusť všechny kontejnery
+
+Powershell
+
+    cd C:\monitoring
+    docker compose up -d
+
+    docker ps
+
+
+
+    CONTAINER ID   NAME             STATUS          PORTS
+    xxxxxxx        grafana          Up 10 seconds   0.0.0.0:3000->3000/tcp
+    xxxxxxx        prometheus       Up 10 seconds   0.0.0.0:9090->9090/tcp
+    xxxxxxx        alertmanager     Up 10 seconds   0.0.0.0:9093->9093/tcp
+    xxxxxxx        node_exporter    Up 10 seconds   0.0.0.0:9100->9100/tcp
+    xxxxxxx        nginx_proxy      Up 10 seconds   0.0.0.0:8080->80/tcp
+
+
+Webová rozhraní
+
+  Grafana              http://localhost:3000                 
+  Prometheus           http://localhost:9090                     
+  Alertmanager         http://localhost:8080                    
+  Node Exporter        http://localhost:9100/metrics             
+
+Grafana
+http://localhost:3000
+-   Username: admin
+-   Password: grafana123
+
+
+Alertmanager
+-   🌐 http://localhost:8080
+-   Username: risa
+-   Password: docker123
+
+
+Vypnutí systému
+
+    cd C:\monitoring
+    docker compose down
+
+
+Restart jen jednoho kontejneru
+
+    docker restart grafana
